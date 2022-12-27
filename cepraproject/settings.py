@@ -25,7 +25,7 @@ SECRET_KEY = '(bif4$8f2sr429%371cjl#3gqjx)aipan%4$0g#(5(2ua(m4eb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.124']
+ALLOWED_HOSTS = ['lab-ups.azurewebsites.net','*']
 #ALLOWED_HOSTS = ['127.0.0.1'] #172.16.225.199
 #ALLOWED_HOSTS = ['172.16.255.199']
 # Application definition
