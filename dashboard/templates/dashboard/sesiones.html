@@ -1,0 +1,36 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Sesiones Realizadas</h1>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Fecha</th>
+                                                <th>Herramienta</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in qs %}
+                                            <tr>
+                                                <td>{{ item.Estudiante.nombre }}</td>
+                                                <td>{{ item.fecha }}</td>
+                                                <td>{{item.Herramienta}}</td>
+                                            </tr>
+                                            {% endfor %}   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+            </div>
+{% endblock %}

@@ -1,0 +1,390 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid">
+            <h2 class="mt-4">IA Transtornos motores - Resultados - Estudiante - Prototipo A1</h2>
+            <ol class="breadcrumb mb-4">
+                <li >Seleccione Estudiante:   </li>
+                <li >
+                    <select id="est">
+                        {% for item in qs %}
+                        <option>{{item.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+                <li ><button id="aceptar">Aceptar</button></li>
+            </ol>
+
+            <h2 class="mt-4">{{est}}</h2>
+           <!-- <font color="blue" size="11px">{{est}}</font><br/> -->
+                                
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Estudiante</div>
+                        <div class="card-body">   
+                                <b>Nombre: </b> {{Estu.nombre}} <br/>        
+                                <b>Edad en Meses: </b> {{Estu.edad_cron_mes}} <br/> 
+                                <b>Edad en Evaluacion: </b>{{Estu.edad_eval_mes}}<br/>
+                                <b>Puntaje Evaluacion: </b>{{Estu.puntuacion}}<br/>
+                                <b>Lateralidad: </b>{{Estu.lateralidad}}<br/>
+                                <b>Nivel: </b>{{Estu.nivel}}<br/>
+                                <b>Unidad Educativa: </b>{{Estu.unidad_edu}}<br/>
+                                <b>Ciudad: </b>{{Estu.ciudad}}<br/>
+                                
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Actividad Sombrero</div>
+                        <div class="card-body"><canvas id="canvas" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Actividad Cordones</div>
+                        <div class="card-body"><canvas id="canvas2" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Actividad Velcro</div>
+                        <div class="card-body"><canvas id="canvas3" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Actividad Cierres</div>
+                        <div class="card-body"><canvas id="canvas4" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Actividad Broches</div>
+                        <div class="card-body"><canvas id="canvas5" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    window.chartColors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(231,233,237)'
+    };
+
+    var config = {
+        type: 'line',
+        data: {
+            labels: [{% for item in FeSon %}'{{item}}',{% endfor %}],
+            datasets: [{
+            label: "Tiempo",
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.red,
+            data: [{% for item in NumSon %}'{{item}}',{% endfor %}],
+            fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+            mode: 'index',
+            intersect: false,
+            },
+            hover: {
+            mode: 'nearest',
+            intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Repeticion'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        max: 60,
+                        
+                        maxTicksLimit: 60
+                    },
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Segundos'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config2 = {
+        type: 'line',
+        data: {
+            labels: [{% for item in FeCor %}'{{item}}',{% endfor %}],
+            datasets: [{
+            label: "Tiempo",
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.red,
+            data: [{% for item in NumCor %}'{{item}}',{% endfor %}],
+            fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+            mode: 'index',
+            intersect: false,
+            },
+            hover: {
+            mode: 'nearest',
+            intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Repeticion'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        max: 60,
+                        
+                        maxTicksLimit: 60
+                    },
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Segundos'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config3 = {
+        type: 'line',
+        data: {
+            labels: [{% for item in FeVel %}'{{item}}',{% endfor %}],
+            datasets: [{
+            label: "Tiempo",
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.red,
+            data: [{% for item in NumVel %}'{{item}}',{% endfor %}],
+            fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+            mode: 'index',
+            intersect: false,
+            },
+            hover: {
+            mode: 'nearest',
+            intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Repeticion'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        max: 60,
+                        
+                        maxTicksLimit: 60
+                    },
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Segundos'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config4 = {
+        type: 'line',
+        data: {
+            labels: [{% for item in FeCie %}'{{item}}',{% endfor %}],
+            datasets: [{
+            label: "Tiempo",
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.red,
+            data: [{% for item in NumCie %}'{{item}}',{% endfor %}],
+            fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+            mode: 'index',
+            intersect: false,
+            },
+            hover: {
+            mode: 'nearest',
+            intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Repeticion'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        max: 60,
+                        
+                        maxTicksLimit: 60
+                    },
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Segundos'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config5 = {
+        type: 'line',
+        data: {
+            labels: [{% for item in FeBro %}'{{item}}',{% endfor %}],
+            datasets: [{
+            label: "Tiempo",
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.red,
+            data: [{% for item in NumBro %}'{{item}}',{% endfor %}],
+            fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+            mode: 'index',
+            intersect: false,
+            },
+            hover: {
+            mode: 'nearest',
+            intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Repeticion'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        max: 60,
+                        
+                        maxTicksLimit: 60
+                    },
+                    scaleLabel: {
+                    display: true,
+                    labelString: 'Segundos'
+                    }
+                }]
+            }
+        }
+    };
+
+
+    function getSelectedText(elementId) {
+        var elt = document.getElementById(elementId);
+
+        if (elt.selectedIndex == -1)
+            return null;
+
+        return elt.options[elt.selectedIndex].text;
+    }
+    document.getElementById('aceptar').addEventListener('click', function() {
+        var text = getSelectedText('est');
+        location.href="http://192.168.0.104:8080/dashboard/chartsPel/"+text;
+
+    });       
+    window.onload = function() {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = getNewChart(ctx, config);
+
+        var ctx2 = document.getElementById("canvas2").getContext("2d");
+        window.myLine = getNewChart2(ctx2, config2);
+
+        var ctx3 = document.getElementById("canvas3").getContext("2d");
+        window.myLine = getNewChart3(ctx3, config3);
+
+        var ctx4 = document.getElementById("canvas4").getContext("2d");
+        window.myLine = getNewChart4(ctx4, config4);
+
+        var ctx5 = document.getElementById("canvas5").getContext("2d");
+        window.myLine = getNewChart5(ctx5, config5);
+
+    }; 
+    function getNewChart(canvas, config) {
+        return new Chart(canvas, config);
+    }
+
+    function getNewChart2(canvas2, config2) {
+        return new Chart(canvas2, config2);
+    }
+
+    function getNewChart3(canvas3, config3) {
+        return new Chart(canvas3, config3);
+    }
+
+    function getNewChart4(canvas4, config4) {
+        return new Chart(canvas4, config4);
+    }
+
+    function getNewChart(canvas5, config5) {
+        return new Chart(canvas5, config5);
+    }
+
+
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+
+{% endblock%}
+
+

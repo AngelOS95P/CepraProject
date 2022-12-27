@@ -1,0 +1,68 @@
+<form method="POST">
+
+    <div class="box">
+        <h1>IA - Transtornos Motores</h1>
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button class="btn" type="submit">Acceder</button>
+    </div> <!-- End Box -->
+  
+</form>
+
+<p style="
+    TEXT-ALIGN: center;
+    COLOR: #FFF;"
+    >Si no posee un usuario por favor contacte al administrador</p>
+  
+<style>
+    body{
+    font-family: 'Open Sans', sans-serif;
+    background:#343a40;
+    margin: 0 auto 0 auto;  
+    width:100%; 
+    text-align:center;
+    margin: 20px 0px 20px 0px;   
+    }
+
+    p{
+    font-size:14px;
+    font: initial
+    color:#343a40;
+    text-align:end;
+    }
+
+    h1{
+    font-size:1.5em;
+    color:#525252;
+    }
+
+    .box{
+    background:white;
+    width:300px;
+    border-radius:6px;
+    margin: 0 auto 0 auto;
+    padding:0px 0px 70px 0px;
+    border: #aaaaaa 4px solid; 
+    }
+
+    .btn{
+    background:#343a40;
+    width:125px;
+    padding-top:5px;
+    padding-bottom:5px;
+    color:white;
+    border-radius:4px;
+    border: #aaaaaa 1px solid;
+    
+    margin-top:20px;
+    margin-bottom:20px;
+    float:left;
+    margin-left:16px;
+    font-weight:800;
+    font-size:0.8em;
+    }
+
+    .btn:hover{
+    background:#aaaaaa; 
+    }
+</style>

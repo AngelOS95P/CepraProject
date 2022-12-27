@@ -1,0 +1,224 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block content %}
+<div id="layoutSidenav_content">
+
+    <main>
+        <div class="container-fluid">
+            <h1 class="mt-4">Proyecto CEPRA</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Informacion Obtenida</li>
+            </ol>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Sesiones</div>
+                        <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Estudiantes por Institución</div>
+                        <div class="card-body"><canvas id="myPieChart" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Actividades</div>
+                        <div class="card-body"><canvas id="myRadarChart" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Estudiantes - Edad cronologica meses</div>
+                        <div class="card-body"><canvas id="BarChartEd" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-table mr-1"></i>Estudiantes Registrados</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Edad Cronologica Meses</th>
+                                    <th>Edad Evaluacion Meses</th>
+                                    <th>Puntuacion</th>
+                                    <th>Unidad Educativa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in qs %}
+                                <tr>
+                                    <td>{{ item.nombre }}</td>
+                                    <td>{{ item.edad_cron_mes }}</td>
+                                    <td>{{ item.edad_eval_mes }}</td>
+                                    <td>{{ item.puntuacion }}</td>
+                                    <td>{{ item.unidad_edu }}</td>
+                                </tr>
+                                {% endfor %}   
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        
+<script>
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+    var ctxBar = document.getElementById("BarChartEd");
+    var myLineChart = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: [{% for item in qs %}'{{item.nombre}}',{% endfor %}],
+            datasets: [{
+            label: "Edad meses",
+            backgroundColor: "rgba(2,117,216,1)",
+            borderColor: "rgba(2,117,216,1)",
+            data: [{% for item in qs %}{{item.edad_cron_mes}},{% endfor%}],
+            }],
+        },
+        options: {
+            scales: {
+            xAxes: [{
+                time: {
+                unit: 'month'
+                },
+                gridLines: {
+                display: false
+                },
+                ticks: {
+                maxTicksLimit: 100
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                min: 0,
+                max: 100,
+                maxTicksLimit: 10
+                },
+                gridLines: {
+                display: true
+                }
+            }],
+            },
+            legend: {
+            display: false
+            }
+        }
+    });
+
+    var ctxPie = document.getElementById("myPieChart");
+    var myPieChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            //labels: ["CEIAP", "Unidad Educativa Particular Universitaria de Azogues"],
+            labels: [{% for item in qsq %}'{{item.unidad_edu}}',{% endfor %}],
+            datasets: [{
+            data: [{% for item in qsq %}'{{item.count}}',{% endfor %}],
+            backgroundColor: [{% for item in colorV %}'{{item}}',{% endfor %}],
+            }],
+        },
+    });
+
+    var ctxR = document.getElementById("myRadarChart");
+    var myRadarChart = new Chart(ctxR,{
+        type:"radar",
+        data:{
+            labels:["Prototipo A1","Prototipo B1","Juego Serio","Prototipo A2","Prototipo B2"],
+            datasets:[{
+                label:"UEPUA",
+                data:[32,28,20,12,16],
+                fill:true,
+                backgroundColor:'rgba(255, 99, 132, 0.2)',
+                borderColor:'rgb(255, 99, 132)',
+                pointBackgroundColor:'rgb(255, 99, 132)',
+                pointBorderColor:'#fff',
+                pointHoverBackgroundColor:'#fff',
+                pointHoverBorderColor:'rgb(255, 99, 132)'
+            },
+                {label:"CEIAP",
+                data:[28,32,30,10,16],
+                fill:true,
+                backgroundColor:'rgba(54, 162, 235, 0.2)',
+                borderColor:'rgb(54, 162, 235)',
+                pointBackgroundColor:'rgb(54, 162, 235)',
+                pointBorderColor:'#fff',
+                pointHoverBackgroundColor:'#fff',
+                pointHoverBorderColor:'rgb(54, 162, 235)'
+                }]
+            },
+        options:{
+            elements:{
+                line:{
+                    tension:0,
+                    borderWidth:3
+                    }}
+                }
+    });
+
+    var ctxAr = document.getElementById("myAreaChart");
+    var myLineChart = new Chart(ctxAr, {
+        type: 'line',
+        data: {
+            labels: [{% for item in nom_est_ses %}'{{item}}',{% endfor %}],
+            datasets: [{
+            label: "Sesiones",
+            lineTension: 0.3,
+            backgroundColor: "rgba(2,117,216,0.2)",
+            borderColor: "rgba(2,117,216,1)",
+            pointRadius: 5,
+            pointBackgroundColor: "rgba(2,117,216,1)",
+            pointBorderColor: "rgba(255,255,255,0.8)",
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(2,117,216,1)",
+            pointHitRadius: 50,
+            pointBorderWidth: 2,
+            data: [{% for item in num_ses %}'{{item.countE}}',{% endfor %}],
+            }],
+        },
+        options: {
+            scales: {
+            xAxes: [{
+                time: {
+                unit: 'fecha'
+                },
+                gridLines: {
+                display: false
+                },
+                ticks: {
+                maxTicksLimit: 100
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                min: 0,
+                max: 40,
+                maxTicksLimit: 10
+                },
+                gridLines: {
+                color: "rgba(0, 0, 0, .125)",
+                }
+            }],
+            },
+            legend: {
+            display: false
+            }
+        }
+    });
+
+</script>
+{% endblock%}
+
+

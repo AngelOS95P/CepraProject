@@ -1,0 +1,89 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Evaluaciones</h1>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Estudiante</th>
+                                                <th title="Abre una puerta">M52</th>
+                                                <th title="Ensarta 4 cuentas grandes">M53</th>
+                                                <th title="Pasa páginas de un libro">M54</th>
+                                                <th title="Sujeta el papel mientras dibuja">M55</th>
+                                                <th title="Dobla una hoja de papel por la mitada">M56</th>
+                                                <th title="Corta con tijeras">M57</th>
+                                                <th title="Dobla dos veces el papel">M58</th>
+                                                <th title="Abre un candado con llave">M59</th>
+                                                <th title="Hace una pelota arrugando papel">M60</th>
+                                                <th title="Hace un nudo">M61</th>
+                                                <th title="Se toca con el pulgar las yemas de los dedos de la mano">62</th>
+                                                <th title="Mete anillas en un soporte">M66</th>
+                                                <th title="Saca la pastilla de la botella">M67</th>
+                                                <th title="Copia una línea vertical">M68</th>
+                                                <th title="Copia un círculo">M69</th>
+                                                <th title="Copia una cruz">M70</th>
+                                                <th title="Corta con tijeras siguiendo una línea">M71</th>
+                                                <th title="Copia las letras V, H, T">M72</th>
+                                                <th title="Copia un triangulo">M73</th>
+                                                <th title="Dibuja una persona (incluyendo 6 elementos)">M74</th>
+                                                <th title="Copia un cuadrado">M75</th>
+                                                <th title="Copia palabras sencillas">M76</th>
+                                                <th title="Copia los números del 1 al 15">M77</th>                                              
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in qs %}
+                                            <tr>
+                                                <td>{{ item.Estudiante }}</td>
+                                                <td>{{ item.M52 }}</td>
+                                                <td>{{ item.M53 }}</td>
+                                                <td>{{ item.M54 }}</td>
+                                                <td>{{ item.M55 }}</td>
+                                                <td>{{ item.M56 }}</td>
+                                                <td>{{ item.M57 }}</td>
+                                                <td>{{ item.M58 }}</td>
+                                                <td>{{ item.M59 }}</td>
+                                                <td>{{ item.M60 }}</td>
+                                                <td>{{ item.M61 }}</td>
+                                                <td>{{ item.M62 }}</td>
+                                                <td>{{ item.M66 }}</td>
+                                                <td>{{ item.M67 }}</td>
+                                                <td>{{ item.M68 }}</td>
+                                                <td>{{ item.M69 }}</td>
+                                                <td>{{ item.M70 }}</td>
+                                                <td>{{ item.M71 }}</td>
+                                                <td>{{ item.M72 }}</td>
+                                                <td>{{ item.M73 }}</td>
+                                                <td>{{ item.M74 }}</td>
+                                                <td>{{ item.M75 }}</td>
+                                                <td>{{ item.M76 }}</td>
+                                                <td>{{ item.M77 }}</td>
+                                            </tr>
+                                            {% endfor %}   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+{% endblock %}
